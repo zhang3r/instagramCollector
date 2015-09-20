@@ -15,7 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from collector import views
+
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+
+    # ex: /collector/
+    url(r'^$', views.form, name='form'),
+    # ex: /collector/
+    url(r'^getForm/$', views.form, name='form'),
+    # ex: /collector/tagname/
+    url(r'^results/', views.results, name='results'),
+
 ]
