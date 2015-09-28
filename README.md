@@ -9,6 +9,8 @@ Assuming postgres and django has been installed
 2. start up postgres "postgres -D . "
 3. start up django "python manage.py runserver"
 4. go to localhost:8000
+5. fill out the form
+6. system should pull json data
 
 ### Logic
 The instagram endpoint takes in a tag and a max_tag_id in order to paginate.
