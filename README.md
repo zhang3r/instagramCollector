@@ -24,5 +24,7 @@ the results page just print the json more work is needed to extract the image it
 
 #### TODO
 ~~1. improve pagination - only get the correct dates~~
+
 2. template results - provide a readable output
+
 ~~3. store images and dates instead of json dump~~
