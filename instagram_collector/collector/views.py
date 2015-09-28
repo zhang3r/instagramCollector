@@ -8,15 +8,16 @@ import json
 import psycopg2
 import time
 from psycopg2.extras import Json
+from .models import Pix, PixManager
 
 
-def __saveToDB(jsondata):
+#def __saveToDB(jsondata):
 	#try:
-		conn = psycopg2.connect("host='localhost' dbname='mydb' user='Zhang3r' password='password'")
-		cur = conn.cursor()
+		#conn = psycopg2.connect("host='localhost' dbname='mydb' user='Zhang3r' password='password'")
+		#cur = conn.cursor()
 	
-		cur.execute("insert into myData (data) values (%s)",[Json(jsondata)])
-		conn.close()
+		#cur.execute("insert into myData (data) values (%s)",[Json(jsondata)])
+		#conn.close()
 	#except:
 	#	raise ValueError('error connecting to db.')
 # Create your views here.
@@ -32,10 +33,12 @@ def form(request):
 		if(form.is_valid()):
 			startDate = datetime.datetime.combine(form.cleaned_data['start_date'], datetime.datetime.min.time())
 			endDate = datetime.datetime.combine(form.cleaned_data['end_date'], datetime.datetime.min.time())
+			tagName = form.cleaned_data['tag_name']
 			result=''
 			data={}
+			pics =[]
 			#TODO Authentication
-			response = urlopen('https://api.instagram.com/v1/tags/'+form.cleaned_data['tag_name']+'/media/recent?client_id=b865ec47b91346f3a2cbcfe04a6a80d9')
+			response = urlopen('https://api.instagram.com/v1/tags/'+tagName+'/media/recent?client_id=b865ec47b91346f3a2cbcfe04a6a80d9')
 			content = response.readall()
 			jdata = json.loads(content.decode(encoding='utf-8' , errors='ignore'))
 			# go through data find min/max tag id ( min > max)
@@ -62,15 +65,29 @@ def form(request):
 			
 			# while current max tag <max tag
 			while( target_start_tag<target_end_tag):
-				tempResponse = urlopen('https://api.instagram.com/v1/tags/'+form.cleaned_data['tag_name']+'/media/recent?client_id=b865ec47b91346f3a2cbcfe04a6a80d9&max_tag_id='+str(target_start_tag))
+				tempResponse = urlopen('https://api.instagram.com/v1/tags/'+tagName+'/media/recent?client_id=b865ec47b91346f3a2cbcfe04a6a80d9&max_tag_id='+str(target_start_tag))
 				tempContent = tempResponse.readall()
 				tempData = json.loads(content.decode(encoding='utf-8' , errors='ignore'))
+				#loop through each post
+				for post in tempData['data']:
+					if tagName in post['tags']:
+						pic=Pix.objects.create_pix(date=datetime.datetime.fromtimestamp(int(post['created_time'])), tag= tagName, piclink=post['images']['standard_resolution']['url'])
+					else:
+						#look in comments
+						for comment in post['comments']['data']:
+							if tagName in text:
+								pic=Pix.objects.create_pix(date=datetime.datetime.fromtimestamp(int(comment['created_time'])), tag= tagName, piclink=post['images']['standard_resolution']['url'])
+								break
+					#save pic
+					pic.save()
+
 				# call service and add to jsondata
+				#save list in db
 				data.update(tempData)
 				result+=str(tempData)
 				target_start_tag=int(tempData['pagination']['next_max_tag_id'])
 			request.session['json_data'] =result
-			__saveToDB(data)
+			#__saveToDB(data)
 			# Store in DB
 			return HttpResponseRedirect('/results/')
 	else:
