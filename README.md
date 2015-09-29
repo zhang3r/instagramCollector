@@ -23,10 +23,14 @@ Since this is guess work the posts are not 100% guarenteed to be between the dat
 
 ~~the results page just print the json more work is needed to extract the image itself out of the data and create a template for the output.~~
 
+example output:
+![example output](http://puu.sh/krYbB/36772d0b62.jpg "output")
+
+
 
 #### TODO
 ~~1. improve pagination - only get the correct dates~~
 
-2. template results - provide a readable output
+~~2. template results - provide a readable output~~
 
 ~~3. store images and dates instead of json dump~~
