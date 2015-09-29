@@ -1,0 +1,8 @@
+{% if pix_list %}
+    <p>Number of Results: {{ pix_list|length }}</p>
+    {% for pix in pix_list %}
+    	<li>{{pix.tag}} {{pix.date}} <img src={{pix.piclink}} height="50" width="50"/></li></br>
+	{% endfor %}
+{% else %}
+    No results.
+{% endif %}
