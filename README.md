@@ -35,3 +35,5 @@ example output:
 ~~2. template results - provide a readable output~~
 
 ~~3. store images and dates instead of json dump~~
+
+4. TESTS!!!!! Stop being lazy >:(
