@@ -22,9 +22,9 @@ from .models import Pix, PixManager
 	#	raise ValueError('error connecting to db.')
 # Create your views here.
 def results (request):
-	response=request.session.get('json_data')
-	
-	return HttpResponse( response)
+	response=Pix.objects.filter(tag=request.session.get('tagName')).filter(date__gte=datetime.datetime.fromtimestamp(int(request.session.get('startDate')))).filter(date__lte=datetime.datetime.fromtimestamp(int(request.session.get('endDate'))))
+	print(response)
+	return render(request, 'result.html', {'pix_list':list(response)})
 
 def form(request):
 	if request.method == 'POST':
@@ -34,6 +34,10 @@ def form(request):
 			startDate = datetime.datetime.combine(form.cleaned_data['start_date'], datetime.datetime.min.time())
 			endDate = datetime.datetime.combine(form.cleaned_data['end_date'], datetime.datetime.min.time())
 			tagName = form.cleaned_data['tag_name']
+			#saving to session
+			request.session['tagName'] =tagName
+			request.session['startDate'] =time.mktime(startDate.timetuple())
+			request.session['endDate'] =time.mktime(endDate.timetuple())
 			result=''
 			data={}
 			pics =[]
@@ -79,7 +83,10 @@ def form(request):
 								pic=Pix.objects.create_pix(date=datetime.datetime.fromtimestamp(int(comment['created_time'])), tag= tagName, piclink=post['images']['standard_resolution']['url'])
 								break
 					#save pic
-					pic.save()
+					if pic is not None:
+						pic.save()
+					else:
+						raise ValueError('cannot find tag')
 
 				# call service and add to jsondata
 				#save list in db
