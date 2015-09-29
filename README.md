@@ -10,7 +10,7 @@ Assuming postgres and django has been installed
 3. start up django "python manage.py runserver"
 4. go to localhost:8000
 5. fill out the form
-6. system should pull json data
+6. system should display data in a list
 
 ### Logic
 The instagram endpoint takes in a tag and a max_tag_id in order to paginate.
@@ -21,7 +21,7 @@ Since this is guess work the posts are not 100% guarenteed to be between the dat
 ### output
 ~~right now the program just dumps all of instagram json data into postgres.~~
 
-the results page just print the json more work is needed to extract the image itself out of the data and create a template for the output.
+~~the results page just print the json more work is needed to extract the image itself out of the data and create a template for the output.~~
 
 
 #### TODO
