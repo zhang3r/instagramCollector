@@ -23,7 +23,6 @@ from .models import Pix, PixManager
 # Create your views here.
 def results (request):
 	response=Pix.objects.filter(tag=request.session.get('tagName')).filter(date__gte=datetime.datetime.fromtimestamp(int(request.session.get('startDate')))).filter(date__lte=datetime.datetime.fromtimestamp(int(request.session.get('endDate'))))
-	print(response)
 	return render(request, 'result.html', {'pix_list':list(response)})
 
 def form(request):
