@@ -7,7 +7,7 @@ Assuming postgres and django has been installed
 
 1. navigate to data folder
 2. start up postgres "postgres -D . "
-3. start up django "python manage.py runserver" or "django-admin runserver"
+3. start up django "python manage.py runserver" ~~or "django-admin runserver"~~(does not work use python manage instead)
 4. open browser to http://localhost:8000
 5. fill out the form
 6. system should display data in a list
@@ -28,7 +28,8 @@ example output:
 ![example output](http://puu.sh/krYbB/36772d0b62.jpg "output")
 
 
-
+#### TESTING
+To run tests, navigate to base directory and run "python manage.py test --settings instagram_collector.unittestsettings"
 #### TODO
 ~~1. improve pagination - only get the correct dates~~
 
@@ -36,4 +37,4 @@ example output:
 
 ~~3. store images and dates instead of json dump~~
 
-4. TESTS!!!!! Stop being lazy >:(
+~~4. TESTS!!!!! Stop being lazy >:(~~
