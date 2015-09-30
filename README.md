@@ -7,7 +7,7 @@ Assuming postgres and django has been installed
 
 1. navigate to data folder
 2. start up postgres "postgres -D . "
-3. start up django "python manage.py runserver" ~~or "django-admin runserver"~~(does not work use python manage instead)
+3. start up django "python manage.py runserver" ~~or "django-admin runserver"~~
 4. open browser to http://localhost:8000
 5. fill out the form
 6. system should display data in a list
