@@ -12,7 +12,7 @@ Assuming postgres and django has been installed
 3. start up django "python manage.py runserver" ~~or "django-admin runserver"~~
 4. open browser to http://localhost:8000
 5. fill out the form
-6. system should display data in a list
+6. page should display results in a list
 
 ### Logic
 The instagram endpoint takes in a tag and a max_tag_id in order to paginate.
