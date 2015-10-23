@@ -1,6 +1,8 @@
 # Instagram Collector
 
-This applications goes hits instagram api and pulls posts that has the associated hashtag
+This applications goes hits instagram api and pulls posts that has the associated hashtag made with django and python 3.
+
+now mostly pylinter friendly
 
 ##usage
 Assuming postgres and django has been installed
