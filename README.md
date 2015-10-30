@@ -20,6 +20,10 @@ However the tag ids are not associated with dates
 Therefore the program guestimates start and end tag ids based on start and end dates.
 Since this is guess work the posts are not 100% guarenteed to be between the dates.
 
+This is done due to the limits raised by instagram noted [here: limits](https://instagram.com/developer/limits/)
+
+at 5000 requests/hour at 20 items per request, at max instagram allows you to query 100,000 posts. Therefore in an attempt to increase result range, an hueristic is applied to decrease the requests need to find tag ids to start gather posts. However this comes at a cost of accuracy and completeness.
+
 ### output
 
 example output:
